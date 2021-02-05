@@ -1,9 +1,9 @@
 package com.davioooh.ciaomondo;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalTime;
 
@@ -12,10 +12,9 @@ import java.time.LocalTime;
 public class GreetingsController {
 
   @GetMapping
-  public String greetings(Model model) {
-    String greetingsMessage = greetingsByTime(LocalTime.now());
-    model.addAttribute("message", greetingsMessage);
-    return "hello-world";
+  public ModelAndView greetings() {
+    return new ModelAndView("hello-world")
+      .addObject("message", greetingsByTime(LocalTime.now()));
   }
 
   public static String greetingsByTime(LocalTime time) {
