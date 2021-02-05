@@ -2,6 +2,7 @@ package com.davioooh.ciaomondo;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -37,6 +38,11 @@ public class GreetingsController {
   @GetMapping(headers = "req-header=hValue")
   public String greetingsWithHeader() {
     return "hello-world-headers";
+  }
+
+  @ModelAttribute("name")
+  public String name() {
+    return "David";
   }
 
 }
