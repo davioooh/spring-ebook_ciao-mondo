@@ -1,10 +1,7 @@
 package com.davioooh.ciaomondo;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalTime;
@@ -21,14 +18,15 @@ public class GreetingsController {
   }
 
   @GetMapping(params = "to")
-  public ModelAndView userGreetings(@RequestParam("to") String toUser) {
+  public ModelAndView userGreetings(@RequestParam("to") String toUser, @RequestHeader("User-Agent") String userAgent) {
     String greetingsMessage = String.format(
       "%s %s!",
       getGreetingsByTime(LocalTime.now()),
       toUser
     );
     return new ModelAndView("hello-user")
-      .addObject("message", greetingsMessage);
+      .addObject("message", greetingsMessage)
+      .addObject("userAgent", userAgent);
   }
 
   public static String getGreetingsByTime(LocalTime time) {
