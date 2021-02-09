@@ -41,6 +41,31 @@ public class GreetingsController {
     return greetings;
   }
 
+  @GetMapping("{userId}")
+  public ModelAndView greetingsById(@PathVariable int userId) {
+    String greetingsMessage = String.format(
+      "%s %s!",
+      getGreetingsByTime(LocalTime.now()),
+      getUserById(userId)
+    );
+
+    return new ModelAndView("hello-user")
+      .addObject("message", greetingsMessage);
+  }
+
+  private static final String[] usersArray = {
+    "Mario",
+    "Roberta",
+    "Carlo"
+  };
+
+  private static String getUserById(int id) {
+    if (id <= 0 || id > usersArray.length) {
+      return "utente sconosciuto";
+    }
+    return usersArray[id - 1];
+  }
+
   @GetMapping(params = "req-param")
   public String greetingsWithParam() {
     return "hello-world-params";
