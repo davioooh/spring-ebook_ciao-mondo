@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalTime;
@@ -16,6 +17,17 @@ public class GreetingsController {
   public ModelAndView greetings() {
     String greetingsMessage = getGreetingsByTime(LocalTime.now()) + " Mondo!";
     return new ModelAndView("hello-world")
+      .addObject("message", greetingsMessage);
+  }
+
+  @GetMapping(params = "to")
+  public ModelAndView userGreetings(@RequestParam("to") String toUser) {
+    String greetingsMessage = String.format(
+      "%s %s!",
+      getGreetingsByTime(LocalTime.now()),
+      toUser
+    );
+    return new ModelAndView("hello-user")
       .addObject("message", greetingsMessage);
   }
 
