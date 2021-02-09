@@ -14,8 +14,9 @@ public class GreetingsController {
 
   @GetMapping
   public ModelAndView greetings() {
+    String greetingsMessage = greetingsByTime(LocalTime.now()) + " Mondo!";
     return new ModelAndView("hello-world")
-      .addObject("message", greetingsByTime(LocalTime.now()));
+      .addObject("message", greetingsMessage);
   }
 
   public static String greetingsByTime(LocalTime time) {
@@ -27,7 +28,7 @@ public class GreetingsController {
     } else {
       greetings = "Buonasera";
     }
-    return greetings + " Mondo!";
+    return greetings;
   }
 
   @GetMapping(params = "req-param")
@@ -40,7 +41,7 @@ public class GreetingsController {
     return "hello-world-headers";
   }
 
-  @ModelAttribute("name")
+  @ModelAttribute("from")
   public String name() {
     return "David";
   }
