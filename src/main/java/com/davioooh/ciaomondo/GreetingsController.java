@@ -14,12 +14,12 @@ public class GreetingsController {
 
   @GetMapping
   public ModelAndView greetings() {
-    String greetingsMessage = greetingsByTime(LocalTime.now()) + " Mondo!";
+    String greetingsMessage = getGreetingsByTime(LocalTime.now()) + " Mondo!";
     return new ModelAndView("hello-world")
       .addObject("message", greetingsMessage);
   }
 
-  public static String greetingsByTime(LocalTime time) {
+  public static String getGreetingsByTime(LocalTime time) {
     String greetings;
     if (time.isBefore(LocalTime.NOON)) {
       greetings = "Buongiorno";
