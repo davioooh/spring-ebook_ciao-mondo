@@ -18,7 +18,10 @@ public class GreetingsController {
   }
 
   @GetMapping(params = "to")
-  public ModelAndView userGreetings(@RequestParam("to") String toUser, @RequestHeader("User-Agent") String userAgent) {
+  public ModelAndView userGreetings(
+    @RequestParam(name = "to", defaultValue = "utente sconosciuto") String toUser,
+    @RequestHeader("User-Agent") String userAgent
+  ) {
     String greetingsMessage = String.format(
       "%s %s!",
       getGreetingsByTime(LocalTime.now()),
